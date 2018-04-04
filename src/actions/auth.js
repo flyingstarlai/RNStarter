@@ -18,3 +18,11 @@ export const authFail = error => ({
   type: types.AUTH_FAIL,
   payload: error,
 });
+
+export const authLogoutInit = () => ({
+  type: types.AUTH_LOGOUT_INITIAL,
+});
+
+export const authLogout = () => ({
+  type: types.AUTH_LOGOUT,
+});

@@ -1,11 +1,11 @@
 import { SwitchNavigator } from 'react-navigation';
 
-import Loader from '../container/LoaderContainer';
-import AppNavigator from './AppNavigator';
+import Root from '../container/RootContainer';
+import MainNavigator from './MainNavigator';
 import AuthNavigator from './AuthNavigator';
 
 export default SwitchNavigator({
-  Loader,
+  Root,
   Auth: AuthNavigator,
-  App: AppNavigator,
-}, { initialRouteName: 'Loader' });
+  Main: MainNavigator,
+}, { initialRouteName: 'Root' });

@@ -13,11 +13,25 @@ function* auth({ payload }) {
     const { userId } = yield app.passport.verifyJWT(accessToken);
     const user = yield usersService.get(userId);
     yield put(actions.authSuccess(user));
+    yield put(actions.navigateToMain());
   } catch (error) {
     yield put(actions.authFail(error.data));
   }
 }
 
+function* logout() {
+  try {
+    yield app.logout();
+    yield put(actions.authLogout());
+    yield put(actions.navigateToRoot());
+  } catch (error) {
+  }
+}
+
 export function* watchAuth() {
   yield takeEvery(types.AUTH_INITIAL, auth);
+}
+
+export function* watchAuthLogout() {
+  yield takeEvery(types.AUTH_LOGOUT_INITIAL, logout);
 }
