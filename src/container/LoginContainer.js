@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, Button, Text } from 'native-base';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+
+import * as actions from '../actions';
 
 import LoginScreen from '../screens/LoginScreen';
 import InputLogin from '../components/Input/InputLogin';
@@ -21,7 +24,7 @@ class Login extends React.Component {
           component={InputLogin}
           validate={required}
         />
-        <Button block onPress={this.props.handleSubmit(values => console.log(values))}>
+        <Button block onPress={this.props.handleSubmit(values => this.props.onLogin(values))}>
           <Text>Login</Text>
         </Button>
       </Form>
@@ -30,7 +33,9 @@ class Login extends React.Component {
       <LoginScreen
         navigation={this.props.navigation}
         loginForm={form}
-  />
+        error={this.props.authError}
+        loading={this.props.authLoading}
+     />
     );
   }
 }
@@ -39,4 +44,13 @@ const LoginContainer = reduxForm({
   form: 'login',
 })(Login);
 
-export default LoginContainer;
+const mapStateToProps = state => ({
+  authLoading: state.auth.loading,
+  authError: state.auth.error,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onLogin: payload => dispatch(actions.authInit(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

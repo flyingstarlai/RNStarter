@@ -3,6 +3,7 @@ import { AppLoading, Asset, Font } from 'expo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { Root } from 'native-base';
 import Roboto from 'native-base/Fonts/Roboto.ttf';
 import Roboto_medium from 'native-base/Fonts/Roboto_medium.ttf';
 
@@ -38,7 +39,9 @@ class Setup extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <Root>
+            <App />
+          </Root>
         </PersistGate>
       </Provider>
     );

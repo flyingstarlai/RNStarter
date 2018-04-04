@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import {
   Container,
   Content,
@@ -6,10 +7,12 @@ import {
   Body,
   Title,
   Button,
+  Toast,
   Text,
   View,
   Icon,
   Footer,
+  Spinner,
 } from 'native-base';
 
 class Login extends React.Component {
@@ -21,7 +24,7 @@ class Login extends React.Component {
             <Icon name="flash" style={{ fontSize: 104 }} />
             <Title> ProcMaster </Title>
             <View padder>
-              <Text style={{ color: '#FFF' }} >
+              <Text>
                 StarLai Dev
               </Text>
             </View>
@@ -29,6 +32,8 @@ class Login extends React.Component {
         </Header>
         <Content>
           <View padder>
+            {this.props.loading ? <Spinner color="blue"/> : null }
+            {this.props.error ? <Text style={styles.textDanger}>{this.props.error.message}</Text> : null}
             {this.props.loginForm}
           </View>
         </Content>
@@ -41,5 +46,13 @@ class Login extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textDanger: {
+    fontSize: 20,
+    color: '#FF1744',
+    alignSelf: 'center',
+  },
+});
 
 export default Login;
